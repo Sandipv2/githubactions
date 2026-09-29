@@ -1,0 +1,24 @@
+name: Deply Node.js app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via ssh
+        uses: appleboy/ssh-actions@v1.2.0
+        with:
+          host: ${{secrets.EC2_HOST}}
+          username: ${{secrets.EC2_USER}}
+          key: ${{secrets.EC2_SSH_KEY}}
+          script: |
+            cd /home/ubuntu/githubactions
+            git pull origin main
+            npm install
+            pm2 start index.js --name nodeapp || pm2 restart app
+            pm2 save

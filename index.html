@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management system</title>
+    <style>
+        #result {
+            display: flex;
+            gap: 10px;
+        }
+        .student-box {
+            border: 2px solid black;
+            padding: 10px;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Student Management System</h1>
+    <button id="getBtn">GET</button>
+    <button id="postBtn">POST</button>
+    <button id="putBtn">PUT</button>
+    <button id="deleteBtn">DELETE</button>
+
+    <div id="result"></div>
+
+</body>
+<script>
+    const getBtn = document.querySelector('#getBtn');
+    const postBtn = document.querySelector('#postBtn');
+    const putBtn = document.querySelector('#putBtn');
+    const deleteBtn = document.querySelector('#deleteBtn');
+    const result = document.querySelector('#result');
+
+    getBtn.addEventListener('click', async () => {
+        const res = await fetch('http://localhost:3000/students')
+        const data = await res.json();
+
+        
+        result.innerHTML = '';
+        data.forEach(student => {
+            result.innerHTML += `
+                <div class='student-box'>
+                    <h3>${student.name}</h3>
+                    <p>ID: ${student.id}</p>
+                    <p>Age: ${student.age}</p>
+                    <p>Division: ${student.div}</p>
+                    <p>Course: ${student.course}</p>
+                </div>
+            `
+        });
+    })
+
+    postBtn.addEventListener('click', async () => {
+        const name = prompt("Enter name: ");
+        const age = parseInt(prompt("Enter age: "));
+        const div = prompt("Enter division: ");
+        const course = prompt("Enter course: ");
+
+        await fetch("http://localhost:3000/students", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name, age, div, course
+            })
+        })
+
+        alert("Data added successfully");
+
+    })
+
+    putBtn.addEventListener('click', async () => {
+        const id = parseInt(prompt("Enter id: "));
+        const name = prompt("Enter new name: ");
+
+        await fetch("http://localhost:3000/students", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id, name
+            })
+        })
+
+        alert("Data updated successfully");
+
+    })
+
+    deleteBtn.addEventListener('click', async () => {
+        const id = parseInt(prompt("Enter ID to delete:"))
+        await fetch('http://localhost:3000/students', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        })
+
+        alert("Data updated successfully");
+    })
+
+</script>
+</html>

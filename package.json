@@ -1,0 +1,15 @@
+{
+  "name": "assignment6",
+  "version": "1.0.0",
+  "description": "Fullstack assignment 6 based on HTTP Methods",
+  "license": "ISC",
+  "author": "Sandip Varma",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
