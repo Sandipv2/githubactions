@@ -35,7 +35,7 @@
     const result = document.querySelector('#result');
 
     getBtn.addEventListener('click', async () => {
-        const res = await fetch('http://localhost:3000/students')
+        const res = await fetch('/students')
         const data = await res.json();
 
         
@@ -59,7 +59,7 @@
         const div = prompt("Enter division: ");
         const course = prompt("Enter course: ");
 
-        await fetch("http://localhost:3000/students", {
+        await fetch("/students", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -77,7 +77,7 @@
         const id = parseInt(prompt("Enter id: "));
         const name = prompt("Enter new name: ");
 
-        await fetch("http://localhost:3000/students", {
+        await fetch("/students", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -93,7 +93,7 @@
 
     deleteBtn.addEventListener('click', async () => {
         const id = parseInt(prompt("Enter ID to delete:"))
-        await fetch('http://localhost:3000/students', {
+        await fetch('/students', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
